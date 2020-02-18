@@ -23,26 +23,30 @@ class GroceryListItem extends React.Component {
     super(props);
 
     this.state = {
-    	done: false
+    	flipped: false
     };
   }
 
-   onListItemHover() {
-    this.setState({
-      done: !this.state.done
-    });
+  mouseOut() {
+
+    this.setState({flipped: false});
+  }
+  
+  mouseOver() {
+    
+    this.setState({flipped: true});
   }
 
 
   render() {
 
   	var style = {
-      fontWeight: this.state.done ? 'bold' : 'none'
+      fontWeight: this.state.flipped ? 'bold' : 'none'
 
-  }
+    };
 
     return (
-      <li>style={style} onMouseLeave={this.onListItemHover.bind(this)}>{this.props.food}</li>
+      <li style={style} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>{this.props.food}</li>
     );
 
 }
