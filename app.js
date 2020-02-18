@@ -21,16 +21,31 @@ class GroceryListItem extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+    	done: false
+    };
+  }
+
+   onListItemHover() {
+    this.setState({
+      done: !this.state.done
+    });
   }
 
 
   render() {
 
-    return (
-      <li>{this.props.food}</li>
-    );
+  	var style = {
+      fontWeight: this.state.done ? 'bold' : 'none'
 
   }
+
+    return (
+      <li>style={style} onMouseLeave={this.onListItemHover.bind(this)}>{this.props.food}</li>
+    );
+
+}
 
 }
 
@@ -67,27 +82,36 @@ var TodoList = (props) => (
 // A class component can be defined as an ES6 class
 // that extends the base Component class included in the React library
 class TodoListItem extends React.Component {
-
-  // A `constructor` method is expected on all ES6 classes
-  // When React instantiates the component,
-  // it will pass `props` to the constructor
   constructor(props) {
-    // Equivalent to ES5's React.Component.call(this, props)
     super(props);
+
+    // `state` is just an object literal
+    this.state = {
+      done: false
+    };
   }
 
-  // Every class component must have a `render` method
-  // Stateless functional components are pretty much just this method
+  // When a list item is clicked, we will toggle the `done`
+  // boolean, and our component's `render` method will run again
+  onListItemClick() {
+    this.setState({
+      done: !this.state.done
+    });
+  }
+
   render() {
+    // Making the style conditional on our `state` lets us
+    // update it based on user interactions.
+    var style = {
+      textDecoration: this.state.done ? 'line-through' : 'none'
+    };
 
-    // `props` is no longer passed as an argument,
-    // but instead accessed with `this.props`
+    // You can pass inline styles using React's `style` attribute to any component
+    // snake-cased css properties become camelCased this this object
     return (
-      <li>{this.props.todo}</li>
+      <li style={style} onClick={this.onListItemClick.bind(this)}>{this.props.todo}</li>
     );
-
   }
-
 }
 
 ReactDOM.render(<App/>, document.getElementById('tutorial'));
