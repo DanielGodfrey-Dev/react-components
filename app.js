@@ -1,48 +1,67 @@
-var GroceryList = (items) => (
-<ul>
-    <li>{items.food[0]}</li>
-    <li>{items.food[1]}</li>
-    <li>{items.food[2]}</li>
-    <li>{items.food[3]}</li>
-</ul>
-);
+//Daniel G sandbox playground_________________________________________
 
 var Main = () => (
   <div>
     <h2>My Grocery List</h2>
-    <GroceryList food={['lettuce', 'avocados', 'steak', 'pile of food']}/> // Here's my GroceryList
+    <GroceryList foods={['lettuce', 'avocados', 'steak', 'pile of food']}/> // Here's my GroceryList after Class refactor
   </div>
 );
 
+//need to refactor into Class
+var GroceryList = (items) => (
+<ul>
+	{items.foods.map(food =>
+		<GroceryListItem food={food} />
+	)}
+</ul>
+);
+
+class GroceryListItem extends React.Component {
+
+
+  constructor(props) {
+    super(props);
+  }
+
+
+  render() {
+
+    return (
+      <li>{this.props.food}</li>
+    );
+
+  }
+
+}
+
 ReactDOM.render(<Main/>, document.getElementById('app'));
 
-// Here we create a `TodoList` component
-var TodoList = (props) => {
 
-  // This function will be called when the first `<li>` below is clicked on
-  // Notice that event handling functions receive an `event` object
-  // We want to define it where it has access to `props`
+//______________Below is Learn tutorial_______________________________
 
-  var onListItemClick = (event) => {
-    console.log('I got clicked');
-  };
 
-  // Because we used curly braces with this arrow function
-  // we have to write an explicit `return` statement
-  return (
-    <ul>
-      <li onClick={onListItemClick}>{props.todos[0]}</li>
-      <li>{props.todos[1]}</li>
-      <li>{props.todos[2]}</li>
-    </ul>
-  );
-}
 
 var App = () => (
   <div>
     <h2>My Todo List</h2>
     <TodoList todos={['Learn React', 'Crush Recast.ly', 'Maybe sleep']}/> // Here we are creating an instance of the `TodoList` component
   </div>
+);
+
+	// var onListItemClick = (event) => {
+	// 	console.log('I got clicked');
+	// };
+
+// Update our `TodoList` to use the new `TodoListItem` component
+// This can still be a stateless function component!
+var TodoList = (props) => (
+
+
+  <ul>
+    {props.todos.map(todo =>
+      <TodoListItem todo={todo} />
+    )}
+  </ul>
 );
 
 // A class component can be defined as an ES6 class
@@ -70,15 +89,5 @@ class TodoListItem extends React.Component {
   }
 
 }
-
-// Update our `TodoList` to use the new `TodoListItem` component
-// This can still be a stateless function component!
-var TodoList = (props) => (
-  <ul>
-    {props.todos.map(todo =>
-      <TodoListItem todo={todo} />
-    )}
-  </ul>
-);
 
 ReactDOM.render(<App/>, document.getElementById('tutorial'));
