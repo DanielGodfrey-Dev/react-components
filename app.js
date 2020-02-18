@@ -3,7 +3,7 @@
 var Main = () => (
   <div>
     <h2>My Grocery List</h2>
-    <GroceryList foods={['lettuce', 'avocados', 'steak', 'pile of food']}/> // Here's my GroceryList after Class refactor
+    <GroceryList foods={['lettuce', 'avocados', 'steak', 'pile of food']}/> // Here's my GroceryList after Class refactor & mouseOver functionality
   </div>
 );
 
@@ -28,12 +28,12 @@ class GroceryListItem extends React.Component {
   }
 
   mouseOut() {
-
+    console.log('mouse is out!')
     this.setState({flipped: false});
   }
   
   mouseOver() {
-    
+  	console.log('in yo!!')
     this.setState({flipped: true});
   }
 
@@ -41,7 +41,7 @@ class GroceryListItem extends React.Component {
   render() {
 
   	var style = {
-      fontWeight: this.state.flipped ? 'bold' : 'none'
+      fontWeight: this.state.flipped ? 'bold' : 'normal'
 
     };
 
